@@ -3,6 +3,7 @@ import "./fonts.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import styled from "styled-components";
+import LogIn from "./screens/LogIn";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path='/'>
-          
+            <LogIn />
           </Route>
 
           <Route exact path='/sign-up'>
