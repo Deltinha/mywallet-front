@@ -16,3 +16,9 @@ export function postLogIn(body) {
 	const promise = axios.post(`${BASE_URL}/login`, body);
 	return promise;
 }
+
+export function postEntry({body, token}) {
+	const config = createHeaders(token);
+	const promise = axios.post(`${BASE_URL}/entries`, body, config);
+	return promise;
+}

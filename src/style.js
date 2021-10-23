@@ -1,8 +1,22 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+export const AppStyled = styled.div`
+    font-family: 'Raleway', sans-serif;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    > div {
+        width: calc(100vw - 50px);
+        max-width: 326px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+`;
 
 export const GlobalStyle = createGlobalStyle`
     body {
-        font-family: 'Raleway', sans-serif;
         background-color: #8C11BE;
     }
     html, body, div, span, applet, object, iframe,

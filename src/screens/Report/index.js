@@ -1,4 +1,5 @@
-import { ReportStyled } from "./style";
+import { ReportStyled, Header, Entries } from "./style";
+import { IoLogOutOutline } from 'react-icons/io5';
 
 export default function Report(){
     const {
@@ -9,10 +10,13 @@ export default function Report(){
 
     return (
         <ReportStyled>
-            <div>
-                <span>{name}</span>
-                <span>X</span>
-            </div>
+            <Header>
+                <span>Olá, {name}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                <IoLogOutOutline />
+            </Header>
+            <Entries>
+                
+            </Entries>
         </ReportStyled>
     );
 }

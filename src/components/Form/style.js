@@ -9,7 +9,7 @@ export const FormStyled = styled.form`
 `;
 
 export const SubmitButton = styled.input`
-    width: 326px;
+    width: 100%;
     height: 46px;
     background-color: #A328D6;
     border: none;
@@ -21,7 +21,7 @@ export const SubmitButton = styled.input`
 `;
 
 export const TextInput = styled.input`
-    width: 326px;
+    width: 100%;
     height: 58px;
     border: ${({redBorder})=> (redBorder ? '3px #ff4000 solid': 'none')};
     border-radius: 5px;
