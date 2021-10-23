@@ -18,7 +18,6 @@ export default function SignUp(){
 
     function processError(status){
         if (status === 409){
-            alert('o email inserido já está sendo usado')
             setEmailConflict(true)
         }
     }
