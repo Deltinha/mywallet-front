@@ -30,6 +30,7 @@ export default function SignUp(){
 
         if (password !== passwordTwo){
             setPasswordsNotMatching(true);
+            setSubmitDisabled(false);
             return;
         }
         
