@@ -1,7 +1,6 @@
 import MyWalletLogo from "../../components/MyWalletLogo";
-import { SubmitButton } from "../../components/SubmitButton/style";
-import { TextInput, InputLabel } from "../../components/TextInput/style";
-import { FormStyled, SignUpStyled } from "./style";
+import { FormStyled, InputLabel, SubmitButton, TextInput } from "../../components/Form/style";
+import { SignUpStyled } from "./style";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { postSignUp } from "../../services/mywallet-api";
@@ -51,6 +50,7 @@ export default function SignUp(){
         <SignUpStyled>
             <MyWalletLogo />
             <FormStyled onSubmit={(e)=>submitForm(e)}>
+                
                 <TextInput redBorder={false} type="text" required placeholder='Nome' onChange={(e)=>setName(e.target.value)}/>
                 <TextInput redBorder={emailConflict} type="email" id='email' required placeholder='E-mail' onChange={(e)=>setEmail(e.target.value)}/>
                 {emailConflict && <InputLabel for='email'>o email inserido já está sendo usado</InputLabel>}

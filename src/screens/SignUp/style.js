@@ -15,10 +15,3 @@ export const SignUpStyled = styled.div`
     }
     
 `;
-
-export const FormStyled = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 32px;
-    gap: 13px;
-`;
