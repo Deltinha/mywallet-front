@@ -1,13 +1,14 @@
-import "./reset.css";
 import "./fonts.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
-import styled from "styled-components";
 import LogIn from "./screens/LogIn";
+import Report from "./screens/Report";
+import { GlobalStyle } from "./style";
 
 function App() {
   return (
-    <AppStyled>
+    <>
+      <GlobalStyle />
       <BrowserRouter>
         <Switch>
           <Route exact path='/'>
@@ -17,16 +18,15 @@ function App() {
           <Route exact path='/sign-up'>
             <SignUp />
           </Route>
+
+          <Route exact path='/report'>
+            <Report />
+          </Route>
           
         </Switch>
       </BrowserRouter>
-    </AppStyled>
+    </>
   );
 }
-
-const AppStyled = styled.div`
-  background-color: #8C11BE;
-  font-family: 'Raleway', sans-serif;
-`;
 
 export default App;
