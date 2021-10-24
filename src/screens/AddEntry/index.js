@@ -19,7 +19,7 @@ export default function AddEntry (){
             setMultiplier(1);
             setHeader('Nova entrada')
         }
-    },[])
+    },[location])
     
     const [description, setDescription] = useState('');
     const [value, setValue] = useState(0);

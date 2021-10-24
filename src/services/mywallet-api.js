@@ -22,3 +22,9 @@ export function postEntry({body, token}) {
 	const promise = axios.post(`${BASE_URL}/entries`, body, config);
 	return promise;
 }
+
+export function getEntries(token) {
+	const config = createHeaders(token);
+	const promise = axios.get(`${BASE_URL}/entries`,config);
+	return promise;
+}
