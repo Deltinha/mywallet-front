@@ -21,6 +21,7 @@ export const Header = styled.div`
     svg {
         font-size: 25px;
         min-width: 25px;
+        cursor: pointer;
     }
 `;
 
@@ -103,6 +104,23 @@ export const Button = styled.button`
     height: 114px;
     border: none;
     border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
     cursor: pointer;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    > svg {
+        font-size: 22px;
+    }
+
+    > span {
+        width: min-content;
+        font-size: 17px;
+        font-weight: 700;
+        text-align: start;
+    }
 `;

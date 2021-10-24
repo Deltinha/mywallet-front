@@ -1,5 +1,5 @@
 import { ReportStyled, Header, Entries, Item, Balance, Value, Date, Description, ButtonsWrapper, Button } from "./style";
-import { IoLogOutOutline } from 'react-icons/io5';
+import { IoLogOutOutline, IoRemoveCircleOutline, IoAddCircleOutline } from 'react-icons/io5';
 import { useEffect, useState } from "react";
 import { getEntries } from "../../services/mywallet-api";
 import dayjs from "dayjs";
@@ -30,7 +30,7 @@ export default function Report(){
     return (
         <ReportStyled>
             <Header>
-                <span>Olá, {name}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                <span>Olá, {name}</span>
                 <IoLogOutOutline />
             </Header>
             <Entries>
@@ -47,10 +47,16 @@ export default function Report(){
             <Balance>SALDO <Value>{balance.toLocaleString('pt-br', {minimumFractionDigits: 2})}</Value></Balance>
             <ButtonsWrapper>
                 <Button onClick={()=>history.push('/add-incoming')}>
-                    Nova entrada
+                    <IoAddCircleOutline />
+                    <span>
+                        Nova entrada
+                    </span>
                 </Button>
                 <Button onClick={()=>history.push('/add-expense')}>
-                    Nova saída
+                    <IoRemoveCircleOutline />
+                    <span>
+                        Nova saída
+                    </span>
                 </Button>
             </ButtonsWrapper>
         </ReportStyled>
