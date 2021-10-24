@@ -5,14 +5,11 @@ import { getEntries } from "../../services/mywallet-api";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br';
 import { useHistory } from "react-router";
+import { ExpiredSessionModal } from "../../components/ExpiredSessionModal/styled";
 
-export default function Report(){
+export default function Report({token, name}){
     const history = useHistory();
     dayjs.locale('pt-br');
-    const {
-        name,
-        token
-    } = JSON.parse(localStorage.getItem('userData'));
     const [balance, setBalance] = useState([]);
     const [entries, setEntries] = useState([]);
     useEffect(()=>{
@@ -29,9 +26,16 @@ export default function Report(){
 
     return (
         <ReportStyled>
+            <ExpiredSessionModal isOpen={false}>
+              <div>
+                a
+              </div>
+            </ExpiredSessionModal>
             <Header>
                 <span>Olá, {name}</span>
-                <IoLogOutOutline />
+                <button>
+                    <IoLogOutOutline />
+                </button>
             </Header>
             <Entries>
                 {entries.map((entry)=>(

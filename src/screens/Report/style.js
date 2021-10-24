@@ -5,19 +5,26 @@ export const ReportStyled = styled.div`
 
 export const Header = styled.div`
     width: 100%;
-    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
     margin-bottom: 22px;
     span {
+        color: white;
         font-size: 26px;
         font-weight: 700;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    > button {
+        border: none;
+        background-color: rgba(0,0,0,0);
+        color: white;
+    }
+
     svg {
         font-size: 25px;
         min-width: 25px;

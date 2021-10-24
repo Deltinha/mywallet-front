@@ -5,8 +5,7 @@ import { FormStyled, SubmitButton, TextInput } from "../../components/Form/style
 import { postEntry } from "../../services/mywallet-api";
 import { AddEntryStyled } from "./style";
 
-export default function AddEntry (){
-    const token = JSON.parse(localStorage.getItem('userData')).token;
+export default function AddEntry ({token}){
     const location = useLocation().pathname;
     const history = useHistory();
     const [header, setHeader] = useState('')

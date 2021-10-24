@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FormStyled, InputLabel, SubmitButton, TextInput } from "../../components/Form/style";
 import MyWalletLogo from "../../components/MyWalletLogo";
 import { postLogIn } from "../../services/mywallet-api";
 import { LoginStyled } from "./style";
 
-export default function LogIn(){
+export default function LogIn({token}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabledButton, setDisabledButton] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const history = useHistory();
+
+    useEffect(() => {
+        if (token) {
+            history.push('/report')
+        }
+    }, [history, token])
 
     function processError(status){
         if (status === 401){
