@@ -33,6 +33,7 @@ export const Header = styled.div`
 `;
 
 export const Entries = styled.div`
+    position: relative;
     box-sizing: border-box;
     padding: 23px 12px 0 12px;
     height: 446px;
@@ -49,6 +50,17 @@ export const Entries = styled.div`
     }
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    > span {
+        color: #868686;
+        font-size: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 180px;
+    }
 `;
 
 export const Item = styled.div`
@@ -68,7 +80,7 @@ export const Item = styled.div`
 `;
 
 export const Value = styled.span`
-    color: ${({children:value})=> parseFloat(value.replace(',','.')) > 0 ? '#03AC00' : '#c70000'};
+    color: ${({children:value})=> parseFloat(value.replace(',','.')) >= 0 ? '#03AC00' : '#c70000'};
 `;
 
 export const Date = styled.span`

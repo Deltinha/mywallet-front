@@ -52,6 +52,7 @@ export default function Report({userData}){
                 </button>
             </Header>
             <Entries>
+                {entries.length === 0 && <span>Não há registros de entrada ou saída</span>}
                 {entries.map((entry, index)=>(
                 <Item key={index}>
                     <div>
@@ -62,7 +63,7 @@ export default function Report({userData}){
                 </Item>
                 ))}
             </Entries>
-            <Balance>SALDO <Value>{balance.toLocaleString('pt-br', {minimumFractionDigits: 2})}</Value></Balance>
+            <Balance>{entries.length > 0 && <>SALDO <Value>{balance.toLocaleString('pt-br', {minimumFractionDigits: 2})}</Value></>}</Balance>
             <ButtonsWrapper>
                 <Button onClick={()=>history.push('/add-incoming')}>
                     <IoAddCircleOutline />
