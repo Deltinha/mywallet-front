@@ -2,10 +2,10 @@ import MyWalletLogo from "../../components/MyWalletLogo";
 import { FormStyled, InputLabel, SubmitButton, TextInput } from "../../components/Form/style";
 import { SignUpStyled } from "./style";
 import { Link, useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { postSignUp } from "../../services/mywallet-api";
 
-export default function SignUp(){
+export default function SignUp({handleLogout}){
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,6 +14,8 @@ export default function SignUp(){
     const [passwordsNotMatching, setPasswordsNotMatching] = useState(false)
     const [submitDisabled, setSubmitDisabled] = useState(false)
     let history = useHistory();
+
+    useEffect(handleLogout,[]);
 
     function processError(status){
         if (status === 409){

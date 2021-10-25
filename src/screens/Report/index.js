@@ -5,18 +5,28 @@ import { getEntries } from "../../services/mywallet-api";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br';
 import { useHistory } from "react-router";
-import { ExpiredSessionModal } from "../../components/ExpiredSessionModal/styled";
+import ExpiredSessionModal from "../../components/ExpiredSessionModal";
 
-export default function Report({token, name}){
+export default function Report({userData}){
     const history = useHistory();
     dayjs.locale('pt-br');
     const [balance, setBalance] = useState([]);
     const [entries, setEntries] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    function processError(status){
+        if (status === 401){
+            setIsModalOpen(true);
+        }
+    }
+
     useEffect(()=>{
-        getEntries(token)
+        if (userData.token){
+            getEntries(userData.token)
             .then(res=>setEntries(res.data))
-            .catch(err=>console.log(err.response.status))
-    },[])
+            .catch((err)=>processError(err.response.status))
+        }
+    },[userData])
 
     useEffect(()=>{
         let sum = 0;
@@ -26,20 +36,16 @@ export default function Report({token, name}){
 
     return (
         <ReportStyled>
-            <ExpiredSessionModal isOpen={false}>
-              <div>
-                a
-              </div>
-            </ExpiredSessionModal>
+            <ExpiredSessionModal isOpen={isModalOpen}/>
             <Header>
-                <span>Olá, {name}</span>
+                <span>Olá, {userData.name}</span>
                 <button>
                     <IoLogOutOutline />
                 </button>
             </Header>
             <Entries>
-                {entries.map((entry)=>(
-                <Item>
+                {entries.map((entry, index)=>(
+                <Item key={index}>
                     <div>
                         <Date>{dayjs(entry.date).format('DD/MM')}</Date>
                         <Description>{entry.description}</Description>

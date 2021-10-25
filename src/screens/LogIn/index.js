@@ -5,7 +5,7 @@ import MyWalletLogo from "../../components/MyWalletLogo";
 import { postLogIn } from "../../services/mywallet-api";
 import { LoginStyled } from "./style";
 
-export default function LogIn({token}){
+export default function LogIn({userData, setUserData}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabledButton, setDisabledButton] = useState(false);
@@ -13,10 +13,10 @@ export default function LogIn({token}){
     const history = useHistory();
 
     useEffect(() => {
-        if (token) {
-            history.push('/report')
+        if (Object.keys(userData).length !== 0) {
+            history.push('/report');
         }
-    }, [history, token])
+    }, [userData])
 
     function processError(status){
         if (status === 401){
@@ -27,12 +27,9 @@ export default function LogIn({token}){
         }
     }
 
-    function redirectToHome(){
-        history.push('/report')
-    }
-
     function saveData(data){
-        localStorage.setItem('userData',JSON.stringify(data))
+        localStorage.setItem('userData',JSON.stringify(data));
+        setUserData(data);
     }
 
     function submitLogIn(e){
@@ -46,7 +43,8 @@ export default function LogIn({token}){
         postLogIn(body)
             .then((res)=>{
                 saveData(res.data);
-                redirectToHome();
+                history.push('/report');
+                
             })
             .catch((err)=>processError(err.response.status))
     }

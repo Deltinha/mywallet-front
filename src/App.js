@@ -1,22 +1,30 @@
 import "./fonts.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import LogIn from "./screens/LogIn";
 import Report from "./screens/Report";
 import { AppStyled, GlobalStyle, ModalBackground } from "./style";
 import AddEntry from "./screens/AddEntry";
 import { ModalProvider } from "styled-react-modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [userData, setUserData] = useState({});
+  const history = useHistory();
 
-  const [token, setToken] = useState('');
-  const [name, setName] = useState('');
-  const userData = localStorage.getItem('userData')
-  if (userData) {
-      setToken = JSON.parse(userData).token;
-      setName = JSON.parse(userData).token;
+  function handleLogout(){
+    localStorage.clear();
+    setUserData({});
+
   }
+
+  
+  useEffect(()=>{
+    const loggedInUserData = localStorage.getItem('userData');
+    if (loggedInUserData) {
+      setUserData(JSON.parse(loggedInUserData))
+    }
+  },[])
 
   return (
     <ModalProvider backgroundComponent={ModalBackground}>
@@ -26,23 +34,23 @@ function App() {
             <BrowserRouter>
               <Switch>
                 <Route exact path='/'>
-                  <LogIn token={token}/>
+                  <LogIn userData={userData} setUserData={setUserData}/>
                 </Route>
 
                 <Route exact path='/sign-up'>
-                  <SignUp />
+                  <SignUp handleLogout={handleLogout}/>
                 </Route>
 
                 <Route exact path='/report'>
-                  <Report token={token} name={name}/>
+                  <Report userData={userData}/>
                 </Route>
 
                 <Route exact path='/add-incoming'>
-                  <AddEntry token={token}/>
+                  <AddEntry userData={userData}/>
                 </Route>
 
                 <Route exact path='/add-expense'>
-                  <AddEntry token={token}/>
+                  <AddEntry userData={userData}/>
                 </Route>
                 
               </Switch>

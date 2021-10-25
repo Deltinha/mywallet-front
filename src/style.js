@@ -10,7 +10,7 @@ export const ModalBackground = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: 5;
-    background-color: rgba(255,0,0,0.7);
+    background-color: rgba(255,255,255,0.7);
 `;
 
 export const AppStyled = styled.div`
