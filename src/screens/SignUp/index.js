@@ -2,10 +2,11 @@ import MyWalletLogo from "../../components/MyWalletLogo";
 import { FormStyled, InputLabel, SubmitButton, TextInput } from "../../components/Form/style";
 import { SignUpStyled } from "./style";
 import { Link, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { postSignUp } from "../../services/mywallet-api";
+import { UserContext } from "../../contexts/UserContext";
 
-export default function SignUp({handleLogout}){
+export default function SignUp(){
     const [name,setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,9 +14,8 @@ export default function SignUp({handleLogout}){
     const [emailConflict, setEmailConflict] = useState(false)
     const [passwordsNotMatching, setPasswordsNotMatching] = useState(false)
     const [submitDisabled, setSubmitDisabled] = useState(false)
+    const {handleLogout} = useContext(UserContext);
     let history = useHistory();
-
-    useEffect(handleLogout,[]);
 
     function processError(status){
         if (status === 409){
@@ -41,7 +41,10 @@ export default function SignUp({handleLogout}){
         };
 
         postSignUp(body)
-            .then(()=>history.push('/'))
+            .then(()=>{
+                handleLogout();
+                history.push('/');
+            })
             .catch((res)=>{
                 setSubmitDisabled(false)
                 processError(res.response.status)

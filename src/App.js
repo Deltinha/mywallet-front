@@ -1,5 +1,5 @@
 import "./fonts.css";
-import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import LogIn from "./screens/LogIn";
 import Report from "./screens/Report";
@@ -7,17 +7,20 @@ import { AppStyled, GlobalStyle, ModalBackground } from "./style";
 import AddEntry from "./screens/AddEntry";
 import { ModalProvider } from "styled-react-modal";
 import { useState, useEffect } from "react";
+import { UserContext } from "./contexts/UserContext";
+import { postLogout } from "./services/mywallet-api";
 
 function App() {
   const [userData, setUserData] = useState({});
-  const history = useHistory();
 
   function handleLogout(){
     localStorage.clear();
+    if (userData) {
+      postLogout(userData.token);
+    }
     setUserData({});
 
   }
-
   
   useEffect(()=>{
     const loggedInUserData = localStorage.getItem('userData');
@@ -36,9 +39,9 @@ function App() {
                 <Route exact path='/'>
                   <LogIn userData={userData} setUserData={setUserData}/>
                 </Route>
-
+                <UserContext.Provider value={{handleLogout}}>
                 <Route exact path='/sign-up'>
-                  <SignUp handleLogout={handleLogout}/>
+                  <SignUp />
                 </Route>
 
                 <Route exact path='/report'>
@@ -52,7 +55,7 @@ function App() {
                 <Route exact path='/add-expense'>
                   <AddEntry userData={userData}/>
                 </Route>
-                
+                </UserContext.Provider>
               </Switch>
             </BrowserRouter>
       </AppStyled>

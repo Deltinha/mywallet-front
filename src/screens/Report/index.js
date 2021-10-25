@@ -1,11 +1,12 @@
 import { ReportStyled, Header, Entries, Item, Balance, Value, Date, Description, ButtonsWrapper, Button } from "./style";
 import { IoLogOutOutline, IoRemoveCircleOutline, IoAddCircleOutline } from 'react-icons/io5';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getEntries } from "../../services/mywallet-api";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br';
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import ExpiredSessionModal from "../../components/ExpiredSessionModal";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Report({userData}){
     const history = useHistory();
@@ -13,6 +14,7 @@ export default function Report({userData}){
     const [balance, setBalance] = useState([]);
     const [entries, setEntries] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {handleLogout} = useContext(UserContext);
 
     function processError(status){
         if (status === 401){
@@ -22,9 +24,12 @@ export default function Report({userData}){
 
     useEffect(()=>{
         if (userData.token){
+            setIsModalOpen(false);
             getEntries(userData.token)
             .then(res=>setEntries(res.data))
             .catch((err)=>processError(err.response.status))
+        } else {
+            setIsModalOpen(true);
         }
     },[userData])
 
@@ -39,7 +44,10 @@ export default function Report({userData}){
             <ExpiredSessionModal isOpen={isModalOpen}/>
             <Header>
                 <span>Olá, {userData.name}</span>
-                <button>
+                <button onClick={()=>{
+                    handleLogout();
+                    history.push('/');
+                }}>
                     <IoLogOutOutline />
                 </button>
             </Header>

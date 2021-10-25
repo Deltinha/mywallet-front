@@ -25,6 +25,12 @@ export function postEntry({body, token}) {
 
 export function getEntries(token) {
 	const config = createHeaders(token);
-	const promise = axios.get(`${BASE_URL}/entries`,config);
+	const promise = axios.get(`${BASE_URL}/entries`, config);
+	return promise;
+}
+
+export function postLogout(token) {
+	const config = createHeaders(token);
+	const promise = axios.post(`${BASE_URL}/logout`, {}, config);
 	return promise;
 }

@@ -22,6 +22,14 @@ export default function AddEntry ({userData}){
             setHeader('Nova entrada')
         }
     },[location])
+
+    useEffect(()=>{
+        if (!userData.token){
+            setIsModalOpen(true);
+        } else {
+            setIsModalOpen(false)
+        }
+    },[userData])
     
     const [description, setDescription] = useState('');
     const [value, setValue] = useState(0);
