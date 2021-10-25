@@ -59,7 +59,7 @@ export default function AddEntry ({userData}){
             <ExpiredSessionModal isOpen={isModalOpen}/>
             <span>{header}</span>
             <FormStyled onSubmit={(e)=>submitEntry(e)}>
-                <TextInput required type='number' placeholder='Valor' onChange={(e)=>(setValue(e.target.value))}/>
+                <TextInput required type='number' step='0.01' placeholder='Valor' onChange={(e)=>(setValue(e.target.value))}/>
                 <TextInput required type='text' placeholder='Descrição' onChange={(e)=>(setDescription(e.target.value))}/>
                 <SubmitButton type='submit' value='Salvar entrada'/>
             </FormStyled>
