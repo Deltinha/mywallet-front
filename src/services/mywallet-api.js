@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:4000"
-    : "https://mywallet-deltinha.herokuapp.com/";
+    : "https://mywallet-deltinha.herokuapp.com";
 
 function createHeaders(token) {
   const config = { headers: { Authorization: `Bearer ${token}` } };
