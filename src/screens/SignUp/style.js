@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 export const SignUpStyled = styled.div`
-    justify-content: center;
-    a {
-        color: white;
-        font-weight: 700;
-        font-size: 15px;
-    }
-    
+  justify-content: center;
+  a {
+    color: var(--iris);
+    font-weight: 700;
+    font-size: 15px;
+  }
 `;

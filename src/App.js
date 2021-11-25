@@ -13,51 +13,50 @@ import { postLogout } from "./services/mywallet-api";
 function App() {
   const [userData, setUserData] = useState({});
 
-  function handleLogout(){
+  function handleLogout() {
     localStorage.clear();
     if (userData) {
       postLogout(userData.token);
     }
     setUserData({});
-
   }
-  
-  useEffect(()=>{
-    const loggedInUserData = localStorage.getItem('userData');
+
+  useEffect(() => {
+    const loggedInUserData = localStorage.getItem("userData");
     if (loggedInUserData) {
-      setUserData(JSON.parse(loggedInUserData))
+      setUserData(JSON.parse(loggedInUserData));
     }
-  },[])
+  }, []);
 
   return (
     <ModalProvider backgroundComponent={ModalBackground}>
       <AppStyled>
         <GlobalStyle />
-          
-            <BrowserRouter>
-              <Switch>
-                <Route exact path='/'>
-                  <LogIn userData={userData} setUserData={setUserData}/>
-                </Route>
-                <UserContext.Provider value={{handleLogout}}>
-                <Route exact path='/sign-up'>
-                  <SignUp />
-                </Route>
 
-                <Route exact path='/report'>
-                  <Report userData={userData}/>
-                </Route>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <LogIn userData={userData} setUserData={setUserData} />
+            </Route>
+            <UserContext.Provider value={{ handleLogout }}>
+              <Route exact path="/sign-up">
+                <SignUp />
+              </Route>
 
-                <Route exact path='/add-incoming'>
-                  <AddEntry userData={userData}/>
-                </Route>
+              <Route exact path="/report">
+                <Report userData={userData} />
+              </Route>
 
-                <Route exact path='/add-expense'>
-                  <AddEntry userData={userData}/>
-                </Route>
-                </UserContext.Provider>
-              </Switch>
-            </BrowserRouter>
+              <Route exact path="/add-incoming">
+                <AddEntry userData={userData} />
+              </Route>
+
+              <Route exact path="/add-expense">
+                <AddEntry userData={userData} />
+              </Route>
+            </UserContext.Provider>
+          </Switch>
+        </BrowserRouter>
       </AppStyled>
     </ModalProvider>
   );
