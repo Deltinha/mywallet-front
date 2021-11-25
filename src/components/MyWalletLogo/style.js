@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const MyWalletStyled = styled.span`
-    font-size: 32px;
-    color: white;
-    font-family: 'Saira Stencil One', cursive;
-    margin-bottom: 28px;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: "PT Sans Narrow", sans-serif;
+  margin-bottom: 28px;
 `;
