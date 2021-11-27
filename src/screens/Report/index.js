@@ -27,7 +27,7 @@ export default function Report({userData}){
             setIsModalOpen(false);
             getEntries(userData.token)
             .then(res=>setEntries(res.data))
-            .catch((err)=>processError(err.response.status))
+            .catch((err)=>processError(err.response?.status))
         } else {
             setIsModalOpen(true);
         }
