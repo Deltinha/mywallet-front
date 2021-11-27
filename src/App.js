@@ -1,28 +1,28 @@
-import "./fonts.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import SignUp from "./screens/SignUp";
-import LogIn from "./screens/LogIn";
-import Report from "./screens/Report";
-import { AppStyled, GlobalStyle, ModalBackground } from "./style";
-import AddEntry from "./screens/AddEntry";
-import { ModalProvider } from "styled-react-modal";
-import { useState, useEffect } from "react";
-import { UserContext } from "./contexts/UserContext";
-import { postLogout } from "./services/mywallet-api";
+import './fonts.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import SignUp from './screens/SignUp';
+import LogIn from './screens/LogIn';
+import Report from './screens/Report';
+import { AppStyled, GlobalStyle, ModalBackground } from './style';
+import AddEntry from './screens/AddEntry';
+import { ModalProvider } from 'styled-react-modal';
+import { useEffect } from 'react';
+import { UserContext } from './contexts/UserContext';
+import { postLogout } from './services/mywallet-api';
+import useLocalStorage from './hooks/useLocalStorage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useLocalStorage('@mywallet-user', {});
 
   function handleLogout() {
     localStorage.clear();
-    if (userData) {
-      postLogout(userData.token);
-    }
+    postLogout(userData.token);
     setUserData({});
   }
 
   useEffect(() => {
-    const loggedInUserData = localStorage.getItem("userData");
+    const loggedInUserData = localStorage.getItem('userData');
     if (loggedInUserData) {
       setUserData(JSON.parse(loggedInUserData));
     }
@@ -44,15 +44,21 @@ function App() {
               </Route>
 
               <Route exact path="/report">
-                <Report userData={userData} />
+                <ProtectedRoute userData={userData}>
+                  <Report userData={userData} />
+                </ProtectedRoute>
               </Route>
 
               <Route exact path="/add-incoming">
-                <AddEntry userData={userData} />
+                <ProtectedRoute userData={userData}>
+                  <AddEntry userData={userData} />
+                </ProtectedRoute>
               </Route>
 
               <Route exact path="/add-expense">
-                <AddEntry userData={userData} />
+                <ProtectedRoute userData={userData}>
+                  <AddEntry userData={userData} />
+                </ProtectedRoute>
               </Route>
             </UserContext.Provider>
           </Switch>
