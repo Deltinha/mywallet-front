@@ -1,20 +1,21 @@
-import './fonts.css';
+import './styles/fonts.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignUp from './screens/SignUp';
 import LogIn from './screens/LogIn';
 import Report from './screens/Report';
-import { AppStyled, GlobalStyle } from './style';
+import { GlobalStyle } from './styles/GlobalStyle';
 import AddEntry from './screens/AddEntry';
 import { useEffect } from 'react';
 import { postLogout } from './services/mywallet-api';
 import useLocalStorage from './hooks/useLocalStorage';
 import ProtectedRoute from './components/ProtectedRoute';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 
 function App() {
   const [userData, setUserData] = useLocalStorage('@mywallet-user', {});
 
   function handleLogout() {
-    localStorage.clear();
     postLogout(userData.token);
     setUserData({});
   }
@@ -27,16 +28,15 @@ function App() {
   }, []);
 
   return (
-    <AppStyled>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
             <LogIn userData={userData} setUserData={setUserData} />
           </Route>
           <Route exact path="/sign-up">
-            <SignUp />
+            <SignUp handleLogout={handleLogout} />
           </Route>
 
           <Route exact path="/report">
@@ -58,7 +58,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-    </AppStyled>
+    </ThemeProvider>
   );
 }
 

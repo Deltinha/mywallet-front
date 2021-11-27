@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ReportStyled = styled.div``;
 
@@ -10,7 +10,7 @@ export const Header = styled.div`
   flex-wrap: nowrap;
   margin-bottom: 22px;
   span {
-    color: var(--text);
+    color: ${({ theme }) => theme.text};
     font-size: 26px;
     font-weight: 700;
     white-space: nowrap;
@@ -21,7 +21,7 @@ export const Header = styled.div`
   > button {
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    color: var(--text);
+    color: ${({ theme }) => theme.text};
   }
 
   svg {
@@ -36,7 +36,7 @@ export const Entries = styled.div`
   box-sizing: border-box;
   padding: 23px 12px 0 12px;
   height: 446px;
-  background-color: var(--overlay);
+  background-color: ${({ theme }) => theme.overlay};
   width: 100%;
   border-radius: 5px 5px 0 0;
   display: flex;
@@ -52,7 +52,7 @@ export const Entries = styled.div`
   scrollbar-width: none;
 
   > span {
-    color: var(--text);
+    color: ${({ theme }) => theme.text};
     font-size: 20px;
     position: absolute;
     left: 50%;
@@ -81,24 +81,24 @@ export const Item = styled.div`
 
 export const Value = styled.span`
   font-weight: 700;
-  color: ${({ children: value }) =>
-    parseFloat(value.replace(",", ".")) >= 0 ? "var(--foam)" : "var(--love)"};
+  color: ${({ children: value, theme }) =>
+    value >= 0 ? `${theme.foam}` : `${theme.love}`};
 `;
 
 export const Date = styled.span`
-  color: var(--text);
+  color: ${({ theme }) => theme.text};
 `;
 
 export const Description = styled.span`
   display: inline-block;
-  color: var(--rose);
+  color: ${({ theme }) => theme.rose};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
 export const Balance = styled.div`
-  color: var(--text);
+  color: ${({ theme }) => theme.text};
   box-sizing: border-box;
   font-size: 17px;
   font-weight: 700;
@@ -107,7 +107,7 @@ export const Balance = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--overlay);
+  background-color: ${({ theme }) => theme.overlay};
   width: 100%;
   border-radius: 0 0 5px 5px;
 `;
@@ -121,8 +121,8 @@ export const ButtonsWrapper = styled.div`
 
 export const Button = styled.button`
   font-size: 17px;
-  color: var(--base);
-  background-color: var(--rose);
+  color: ${({ theme }) => theme.base};
+  background-color: ${({ theme }) => theme.rose};
   height: 114px;
   border: none;
   border-radius: 5px;

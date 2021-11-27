@@ -7,11 +7,10 @@ import {
 } from '../../components/Form/style';
 import { SignUpStyled } from './style';
 import { Link, useHistory } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { postSignUp } from '../../services/mywallet-api';
-import { UserContext } from '../../contexts/UserContext';
 
-export default function SignUp() {
+export default function SignUp({ handleLogout }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +18,7 @@ export default function SignUp() {
   const [emailConflict, setEmailConflict] = useState(false);
   const [passwordsNotMatching, setPasswordsNotMatching] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
-  const { handleLogout } = useContext(UserContext);
+
   let history = useHistory();
 
   function processError(status) {
@@ -46,7 +45,7 @@ export default function SignUp() {
     };
 
     postSignUp(body)
-      .then(() => {
+      .then((res) => {
         handleLogout();
         history.push('/');
       })
