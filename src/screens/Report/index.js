@@ -15,25 +15,23 @@ import {
   IoRemoveCircleOutline,
   IoAddCircleOutline,
 } from 'react-icons/io5';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { getEntries } from '../../services/mywallet-api';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useHistory } from 'react-router-dom';
-import ExpiredSessionModal from '../../components/ExpiredSessionModal';
-import { UserContext } from '../../contexts/UserContext';
 
-export default function Report({ userData }) {
+export default function Report({ userData, handleLogout }) {
   const history = useHistory();
   dayjs.locale('pt-br');
   const [balance, setBalance] = useState([]);
   const [entries, setEntries] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { handleLogout } = useContext(UserContext);
 
   function processError(status) {
     if (status === 401) {
-      setIsModalOpen(true);
+      Swal.fire('Sessão expirada.');
+      handleLogout();
     }
   }
 
@@ -51,7 +49,6 @@ export default function Report({ userData }) {
 
   return (
     <ReportStyled>
-      <ExpiredSessionModal isOpen={isModalOpen} />
       <Header>
         <span>Olá, {userData.name}</span>
         <button

@@ -1,20 +1,7 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const ModalBackground = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 5;
-  background-color: rgba(255, 255, 255, 0.7);
-`;
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const AppStyled = styled.div`
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   height: 100vh;
   padding-top: 25px;
   display: flex;

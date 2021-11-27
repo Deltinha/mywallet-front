@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import ExpiredSessionModal from '../../components/ExpiredSessionModal';
+import Swal from 'sweetalert2';
 import {
   FormStyled,
   SubmitButton,
@@ -10,13 +10,12 @@ import {
 import { postEntry } from '../../services/mywallet-api';
 import { AddEntryStyled } from './style';
 
-export default function AddEntry({ userData }) {
+export default function AddEntry({ userData, handleLogout }) {
   const location = useLocation().pathname;
   const history = useHistory();
   const [header, setHeader] = useState('');
   const [buttonText, setButtonText] = useState('');
   const [multiplier, setMultiplier] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { token } = userData;
 
   useEffect(() => {
@@ -37,7 +36,8 @@ export default function AddEntry({ userData }) {
 
   function processError(status) {
     if (status === 401) {
-      setIsModalOpen(true);
+      Swal.fire('Sessão expirada.');
+      handleLogout();
     }
   }
 
@@ -56,7 +56,6 @@ export default function AddEntry({ userData }) {
 
   return (
     <AddEntryStyled>
-      <ExpiredSessionModal isOpen={isModalOpen} />
       <span>{header}</span>
       <FormStyled onSubmit={(e) => submitEntry(e)}>
         <TextInput
