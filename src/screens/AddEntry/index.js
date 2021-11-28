@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import Swal from 'sweetalert2';
 import {
   FormStyled,
   SubmitButton,
   TextInput,
 } from '../../components/Form/style';
+import { ThemedAlert } from '../../components/ThemedAlert';
 import { postEntry } from '../../services/mywallet-api';
 import { AddEntryStyled } from './style';
 
@@ -16,6 +16,7 @@ export default function AddEntry({ userData, handleLogout }) {
   const [header, setHeader] = useState('');
   const [buttonText, setButtonText] = useState('');
   const [multiplier, setMultiplier] = useState(1);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const { token } = userData;
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function AddEntry({ userData, handleLogout }) {
 
   function processError(status) {
     if (status === 401) {
-      Swal.fire('Sessão expirada.');
+      ThemedAlert.fire('Sua sessão expirou');
       handleLogout();
     }
   }
@@ -48,10 +49,13 @@ export default function AddEntry({ userData, handleLogout }) {
       value: value * multiplier,
       date,
     };
-
+    setButtonDisabled(true);
     postEntry({ body, token })
       .then(() => history.push('/report'))
-      .catch((err) => processError(err.response?.status));
+      .catch((err) => {
+        setButtonDisabled(false);
+        processError(err.response?.status);
+      });
   }
 
   return (
@@ -71,7 +75,11 @@ export default function AddEntry({ userData, handleLogout }) {
           placeholder="Descrição"
           onChange={(e) => setDescription(e.target.value)}
         />
-        <SubmitButton type="submit" value={buttonText} />
+        <SubmitButton
+          disabled={buttonDisabled}
+          type="submit"
+          value={buttonText}
+        />
       </FormStyled>
     </AddEntryStyled>
   );

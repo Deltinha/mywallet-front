@@ -37,6 +37,7 @@ export default function LogIn({ userData, setUserData }) {
   }
 
   function submitLogIn(e) {
+    setDisabledButton(true);
     e.preventDefault();
     const body = {
       email,
@@ -49,7 +50,10 @@ export default function LogIn({ userData, setUserData }) {
         saveData(res.data);
         history.push('/report');
       })
-      .catch((err) => processError(err.response.status));
+      .catch((err) => {
+        setDisabledButton(false);
+        processError(err.response?.status);
+      });
   }
 
   return (

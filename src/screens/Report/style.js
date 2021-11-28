@@ -82,7 +82,7 @@ export const Item = styled.div`
 export const Value = styled.span`
   font-weight: 700;
   color: ${({ children: value, theme }) =>
-    value >= 0 ? `${theme.foam}` : `${theme.love}`};
+    value.replace(',', '.') >= 0 ? `${theme.pine}` : `${theme.love}`};
 `;
 
 export const Date = styled.span`

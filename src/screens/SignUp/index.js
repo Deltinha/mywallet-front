@@ -45,13 +45,13 @@ export default function SignUp({ handleLogout }) {
     };
 
     postSignUp(body)
-      .then((res) => {
+      .then(() => {
         handleLogout();
         history.push('/');
       })
-      .catch((res) => {
+      .catch((err) => {
         setSubmitDisabled(false);
-        processError(res.response?.status);
+        processError(err.response?.status);
       });
   }
 

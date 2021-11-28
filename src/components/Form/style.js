@@ -11,7 +11,8 @@ export const FormStyled = styled.form`
 export const SubmitButton = styled.input`
   width: 100%;
   height: 46px;
-  background-color: ${({ theme }) => theme.rose};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.inactive : theme.rose};
   border: none;
   border-radius: 5px;
   color: ${({ theme }) => theme.base};

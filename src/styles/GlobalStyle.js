@@ -61,4 +61,27 @@ export const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    .btn {
+        border: none;
+        width: 100px;
+        height: 46px;
+        border-radius: 5px;
+        color: ${({ theme }) => theme.base};
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Raleway', sans-serif;
+    }
+    .btn-confirm {
+        background-color: ${({ theme }) => theme.rose};
+        
+    }
+    .alert-container {
+        background-color: ${({ theme }) => theme.overlay};
+    }
+    .alert-title {
+        color: ${({ theme }) => theme.text};
+        font-family: 'Raleway', sans-serif;
+        font-weight: 700;
+    }
 `;

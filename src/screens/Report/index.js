@@ -16,11 +16,11 @@ import {
   IoAddCircleOutline,
 } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import { getEntries } from '../../services/mywallet-api';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useHistory } from 'react-router-dom';
+import { ThemedAlert } from '../../components/ThemedAlert';
 
 export default function Report({ userData, handleLogout }) {
   const history = useHistory();
@@ -30,7 +30,7 @@ export default function Report({ userData, handleLogout }) {
 
   function processError(status) {
     if (status === 401) {
-      Swal.fire('Sessão expirada.');
+      ThemedAlert.fire('Sessão expirada.');
       handleLogout();
     }
   }
