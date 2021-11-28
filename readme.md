@@ -6,8 +6,6 @@
 
 MyWallet simplifies the management of your personal finances. It helps you track your financial transactions and review your all time financial data, so you can understand your incoming and spending.
 
-Try it out now at [http://mywallet-front-zeta.vercel.app/](http://mywallet-front-zeta.vercel.app/)
-
 Features include:
 
 - Register
@@ -15,6 +13,8 @@ Features include:
 - List your transactions
 - Add incoming
 - Add spending
+
+Try it out now at [http://mywallet-front-zeta.vercel.app/](http://mywallet-front-zeta.vercel.app/)
 
 ## Technologies
 
