@@ -22,7 +22,7 @@ Try it out now at [http://mywallet-front-zeta.vercel.app/](http://mywallet-front
 - React Router Dom
 - Axios
 - styled-components
-- styled-react-modal
+- sweetalert2
 - dayjs
 
 ## Running locally
