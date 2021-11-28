@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FormStyled = styled.form`
   display: flex;
@@ -11,32 +11,34 @@ export const FormStyled = styled.form`
 export const SubmitButton = styled.input`
   width: 100%;
   height: 46px;
-  background-color: var(--rose);
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.inactive : theme.rose};
   border: none;
   border-radius: 5px;
-  color: var(--base);
+  color: ${({ theme }) => theme.base};
   font-size: 20px;
   font-weight: 700;
-  cursor: ${({ disabled }) => (disabled ? "wait" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'wait' : 'pointer')};
 `;
 
 export const TextInput = styled.input`
-  background-color: var(--overlay);
-  color: var(--text);
+  background-color: ${({ theme }) => theme.overlay};
+  color: ${({ theme }) => theme.text};
   width: 100%;
   height: 58px;
-  border: ${({ redBorder }) => (redBorder ? "3px var(--iris) solid" : "none")};
+  border: ${({ redBorder, theme }) =>
+    redBorder ? `3px ${theme.love} solid` : 'none'};
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 20px;
   padding: 17px 15px 17px 15px;
 
   :focus {
-    outline: 3px solid var(--subtle);
+    outline: 3px solid ${({ theme }) => theme.subtle};
   }
 
   ::placeholder {
-    color: var(--text);
+    color: ${({ theme }) => theme.text};
     opacity: 1;
   }
 
@@ -49,7 +51,7 @@ export const TextInput = styled.input`
 `;
 
 export const InputLabel = styled.label`
-  color: var(--love);
+  color: ${({ theme }) => theme.love};
   font-size: 15;
   font-weight: 700;
   margin-bottom: 13px;

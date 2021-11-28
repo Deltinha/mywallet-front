@@ -1,64 +1,64 @@
-import "./fonts.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import SignUp from "./screens/SignUp";
-import LogIn from "./screens/LogIn";
-import Report from "./screens/Report";
-import { AppStyled, GlobalStyle, ModalBackground } from "./style";
-import AddEntry from "./screens/AddEntry";
-import { ModalProvider } from "styled-react-modal";
-import { useState, useEffect } from "react";
-import { UserContext } from "./contexts/UserContext";
-import { postLogout } from "./services/mywallet-api";
+import './styles/fonts.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import SignUp from './screens/SignUp';
+import LogIn from './screens/LogIn';
+import Report from './screens/Report';
+import { GlobalStyle } from './styles/GlobalStyle';
+import AddEntry from './screens/AddEntry';
+import { useEffect } from 'react';
+import { postLogout } from './services/mywallet-api';
+import useLocalStorage from './hooks/useLocalStorage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 
 function App() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useLocalStorage('@mywallet-user', {});
 
   function handleLogout() {
-    localStorage.clear();
-    if (userData) {
-      postLogout(userData.token);
-    }
+    postLogout(userData.token);
     setUserData({});
   }
 
   useEffect(() => {
-    const loggedInUserData = localStorage.getItem("userData");
+    const loggedInUserData = localStorage.getItem('userData');
     if (loggedInUserData) {
       setUserData(JSON.parse(loggedInUserData));
     }
   }, []);
 
   return (
-    <ModalProvider backgroundComponent={ModalBackground}>
-      <AppStyled>
-        <GlobalStyle />
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <LogIn userData={userData} setUserData={setUserData} />
+          </Route>
+          <Route exact path="/sign-up">
+            <SignUp handleLogout={handleLogout} />
+          </Route>
 
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/">
-              <LogIn userData={userData} setUserData={setUserData} />
-            </Route>
-            <UserContext.Provider value={{ handleLogout }}>
-              <Route exact path="/sign-up">
-                <SignUp />
-              </Route>
+          <Route exact path="/report">
+            <ProtectedRoute userData={userData}>
+              <Report userData={userData} handleLogout={handleLogout} />
+            </ProtectedRoute>
+          </Route>
 
-              <Route exact path="/report">
-                <Report userData={userData} />
-              </Route>
+          <Route exact path="/add-incoming">
+            <ProtectedRoute userData={userData}>
+              <AddEntry userData={userData} handleLogout={handleLogout} />
+            </ProtectedRoute>
+          </Route>
 
-              <Route exact path="/add-incoming">
-                <AddEntry userData={userData} />
-              </Route>
-
-              <Route exact path="/add-expense">
-                <AddEntry userData={userData} />
-              </Route>
-            </UserContext.Provider>
-          </Switch>
-        </BrowserRouter>
-      </AppStyled>
-    </ModalProvider>
+          <Route exact path="/add-expense">
+            <ProtectedRoute userData={userData}>
+              <AddEntry userData={userData} handleLogout={handleLogout} />
+            </ProtectedRoute>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

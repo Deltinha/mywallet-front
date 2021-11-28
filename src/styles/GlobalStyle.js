@@ -1,52 +1,22 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const ModalBackground = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 5;
-  background-color: rgba(255, 255, 255, 0.7);
-`;
-
-export const AppStyled = styled.div`
-  font-family: "Raleway", sans-serif;
-  height: 100vh;
-  padding-top: 25px;
-  display: flex;
-  justify-content: center;
-  > div {
-    width: calc(100vw - 50px);
-    max-width: 326px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-    :root {
-      --base: #191724;
-      --surface: #1f1d2e;
-      --overlay: #26233a;
-      --inactive: #555169;
-      --subtle: #6e6a86;
-      --text: #e0def4;
-      --love: #eb6f92;
-      --gold: #f6c177;
-      --rose: #ebbcba;
-      --pine: #31748f;
-      --foam: #9ccfd8;
-      --iris: #c4a7e7;
-      --highlight: #2a2837;
-      --highlightInactive: #211f2d;
-      --highlightOverlay: #3a384a;
-
-    background-color: var(--base);
+    html {
+        background-color: ${({ theme }) => theme.base};
+    }
+    #root {
+        font-family: 'Raleway', sans-serif;
+        height: 100vh;
+        padding-top: 25px;
+        display: flex;
+        justify-content: center;
+        > div {
+            width: calc(100vw - 50px);
+            max-width: 326px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        } 
     }
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -69,7 +39,6 @@ export const GlobalStyle = createGlobalStyle`
         vertical-align: baseline;
         text-decoration: none;
     }
-    /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
         display: block;
@@ -91,5 +60,28 @@ export const GlobalStyle = createGlobalStyle`
     table {
         border-collapse: collapse;
         border-spacing: 0;
+    }
+    .btn {
+        border: none;
+        width: 100px;
+        height: 46px;
+        border-radius: 5px;
+        color: ${({ theme }) => theme.base};
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: 'Raleway', sans-serif;
+    }
+    .btn-confirm {
+        background-color: ${({ theme }) => theme.rose};
+        
+    }
+    .alert-container {
+        background-color: ${({ theme }) => theme.overlay};
+    }
+    .alert-title {
+        color: ${({ theme }) => theme.text};
+        font-family: 'Raleway', sans-serif;
+        font-weight: 700;
     }
 `;
